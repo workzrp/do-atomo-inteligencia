@@ -32,19 +32,27 @@
 .gallery-card:after{content:'↗';position:absolute;top:10px;right:10px;width:30px;height:30px;display:grid;place-items:center;background:var(--accent);color:var(--ink);font-size:18px;opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s;pointer-events:none}
 .gallery-card:hover:after,.gallery-card:focus-within:after{opacity:1;transform:translateY(0)}
 .gallery-card img{cursor:zoom-in}
+.gallery-card.gallery-video{cursor:pointer}
+.gallery-card.gallery-video video{pointer-events:none}
+.gallery-card.gallery-video:before{content:'▶';position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;display:grid;place-items:center;padding-left:3px;background:var(--accent);color:var(--ink);font-size:18px;box-shadow:0 4px 24px #0004;pointer-events:none;transition:transform .2s}
+.gallery-card.gallery-video:hover:before{transform:translate(-50%,-50%) scale(1.08)}
+.gallery-lightbox video{display:none;width:auto;height:auto;max-width:calc(100vw - 144px);max-height:calc(100dvh - 128px);object-fit:contain;background:#000}
+.gallery-lightbox video.active{display:block}
+.gallery-lightbox img.active{display:block}
+.gallery-lightbox img:not(.active){display:none}
 .gallery-placeholder{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:18px;background:linear-gradient(135deg,#e9e6de,#f5f3ee);color:var(--muted);font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.04em}
 .gallery-placeholder[hidden]{display:none}
 .gallery-placeholder strong{display:block;color:var(--ink);font:800 clamp(1.4rem,2.5vw,2.5rem)/1.05 var(--serif);margin-bottom:10px}
 .gallery-card figcaption{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:white;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.04em}
 .gallery-lightbox{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:1000;background:rgba(12,12,12,.94);display:none;align-items:center;justify-content:center;padding:64px 72px;overflow:auto;overscroll-behavior:contain}
 .gallery-lightbox.open{display:flex}
-.gallery-lightbox img{display:block;width:auto;height:auto;max-width:calc(100vw - 144px);max-height:calc(100vh - 128px);max-height:calc(100dvh - 128px);object-fit:contain;flex:0 1 auto}
+.gallery-lightbox img{display:none;width:auto;height:auto;max-width:calc(100vw - 144px);max-height:calc(100vh - 128px);max-height:calc(100dvh - 128px);object-fit:contain;flex:0 1 auto}.gallery-lightbox img.active{display:block}
 .gallery-lightbox .close,.gallery-lightbox .prev,.gallery-lightbox .next{z-index:2}
 .gallery-lightbox button{position:absolute;border:1px solid rgba(255,255,255,.55);background:rgba(0,0,0,.35);color:#fff;padding:12px 15px;cursor:pointer;font:12px var(--mono)}
 .gallery-lightbox .close{top:20px;right:20px}.gallery-lightbox .prev{left:20px;top:50%;transform:translateY(-50%)}.gallery-lightbox .next{right:20px;top:50%;transform:translateY(-50%)}
 .gallery-lightbox .count{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;font:12px var(--mono)}
 @media(max-width:900px){.gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:600px){.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gallery-tools{align-items:flex-start}.gallery-hint{width:100%}.gallery-card figcaption{padding:8px;font-size:9px}.gallery-lightbox{padding:58px 12px 54px}.gallery-lightbox img{max-width:calc(100vw - 24px);max-height:calc(100vh - 112px);max-height:calc(100dvh - 112px)}.gallery-lightbox .close{top:10px;right:10px}.gallery-lightbox .prev{left:8px}.gallery-lightbox .next{right:8px}.gallery-lightbox .count{bottom:14px}}
+@media(max-width:600px){.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gallery-tools{align-items:flex-start}.gallery-hint{width:100%}.gallery-card figcaption{padding:8px;font-size:9px}.gallery-lightbox{padding:58px 12px 54px}.gallery-lightbox img,.gallery-lightbox video{max-width:calc(100vw - 24px);max-height:calc(100vh - 112px);max-height:calc(100dvh - 112px)}.gallery-lightbox .close{top:10px;right:10px}.gallery-lightbox .prev{left:8px}.gallery-lightbox .next{right:8px}.gallery-lightbox .count{bottom:14px}}
 
 .workz-feature{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,5vw,70px);align-items:center}
 .workz-photo{position:relative;aspect-ratio:4/3;background:#181818;overflow:hidden;border:1px solid #aaa69e}
@@ -110,12 +118,12 @@
 <figure class="gallery-card"><img src="fotos/WhatsApp%20Image%202026-10-28%20at%2010.03.37%20(1).jpeg" alt="Foto 30 do evento Do Átomo à Inteligência" loading="lazy"><figcaption>Foto 30</figcaption></figure>
 <figure class="gallery-card"><img src="fotos/WhatsApp%20Image%202026-10-28%20at%2010.03.37%20(2).jpeg" alt="Foto 31 do evento Do Átomo à Inteligência" loading="lazy"><figcaption>Foto 31</figcaption></figure>
 <figure class="gallery-card"><img src="fotos/WhatsApp%20Image%202026-10-28%20at%2010.03.37.jpeg" alt="Foto 32 do evento Do Átomo à Inteligência" loading="lazy"><figcaption>Foto 32</figcaption></figure>
-<figure class="gallery-card gallery-video"><video controls playsinline preload="metadata" aria-label="Vídeo 01 do evento Do Átomo à Inteligência"><source src="fotos/WhatsApp%20Video%202026-10-28%20at%2010.03.14.mp4" type="video/mp4">Seu navegador não consegue reproduzir este vídeo.</video><figcaption>Vídeo 01</figcaption></figure>
+<figure class="gallery-card gallery-video"><video muted playsinline preload="metadata" aria-label="Vídeo 01 do evento Do Átomo à Inteligência"><source src="fotos/WhatsApp%20Video%202026-10-28%20at%2010.03.14.mp4" type="video/mp4">Seu navegador não consegue reproduzir este vídeo.</video><figcaption>Vídeo 01</figcaption></figure>
 <figure class="gallery-card gallery-video"><video controls playsinline preload="metadata" aria-label="Vídeo 02 do evento Do Átomo à Inteligência"><source src="fotos/WhatsApp%20Video%202026-10-28%20at%2010.03.21.mp4" type="video/mp4">Seu navegador não consegue reproduzir este vídeo.</video><figcaption>Vídeo 02</figcaption></figure>
 <figure class="gallery-card gallery-video"><video controls playsinline preload="metadata" aria-label="Vídeo 03 do evento Do Átomo à Inteligência"><source src="fotos/WhatsApp%20Video%202026-10-28%20at%2010.03.26.mp4" type="video/mp4">Seu navegador não consegue reproduzir este vídeo.</video><figcaption>Vídeo 03</figcaption></figure>
 <figure class="gallery-card gallery-video"><video controls playsinline preload="metadata" aria-label="Vídeo 04 do evento Do Átomo à Inteligência"><source src="fotos/WhatsApp%20Video%202026-10-28%20at%2010.03.31.mp4" type="video/mp4">Seu navegador não consegue reproduzir este vídeo.</video><figcaption>Vídeo 04</figcaption></figure>
 <figure class="gallery-card gallery-video"><video controls playsinline preload="metadata" aria-label="Vídeo 05 do evento Do Átomo à Inteligência"><source src="fotos/WhatsApp%20Video%202026-10-28%20at%2010.03.35.mp4" type="video/mp4">Seu navegador não consegue reproduzir este vídeo.</video><figcaption>Vídeo 05</figcaption></figure>
-</div><div class="gallery-lightbox" id="galleryLightbox" role="dialog" aria-modal="true" aria-label="Visualização das fotos do evento"><button class="close" type="button" aria-label="Fechar">Fechar ✕</button><button class="prev" type="button" aria-label="Foto anterior">←</button><img alt="Foto ampliada do evento"><button class="next" type="button" aria-label="Próxima foto">→</button><div class="count"></div></div></section>
+</div><div class="gallery-lightbox" id="galleryLightbox" role="dialog" aria-modal="true" aria-label="Visualização das fotos do evento"><button class="close" type="button" aria-label="Fechar">Fechar ✕</button><button class="prev" type="button" aria-label="Foto anterior">←</button><img alt="Foto ampliada do evento"><video controls playsinline preload="metadata" aria-label="Vídeo ampliado do evento"></video><button class="next" type="button" aria-label="Próxima foto">→</button><div class="count"></div></div></section>
 <section class="section reveal" id="inscricao"><div class="section-label">05 / É hoje!</div><div class="register"><div class="register-intro"><h2>É hoje.<br>Nos vemos lá.</h2><p>A palestra <em>Do Átomo à Inteligência</em> acontece hoje, 28 de outubro, às 9h.</p></div><div class="registration-closed"><span class="closed-mark">×</span><h3>Inscrições encerradas</h3><p>As inscrições para o evento foram encerradas. Agradecemos o interesse e esperamos você em uma próxima conversa!</p></div></div></section>
 <section class="section reveal"><div class="section-label">06 / Conheça o Workz</div><div class="workz-feature">
 <div class="workz-photo"><img src="fotos/workz-fachada.jpg" alt="Fachada do coworking Workz" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="gallery-placeholder" hidden><div><strong>Workz</strong>Adicione workz-fachada.jpg</div></div></div>
@@ -127,22 +135,22 @@
 const progress=document.getElementById('progress');function updateProgress(){const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'}addEventListener('scroll',updateProgress,{passive:true});updateProgress();
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 const lightbox=document.getElementById('galleryLightbox');
-// Keep the lightbox directly under body so reveal/transform animations on the gallery section cannot offset the fixed overlay.
 document.body.appendChild(lightbox);
 const lightboxImg=lightbox.querySelector('img');
+const lightboxVideo=lightbox.querySelector('video');
 const countLabel=lightbox.querySelector('.count');
 const galleryCards=Array.from(document.querySelectorAll('#galeria .gallery-card'));
-let galleryImages=Array.from(document.querySelectorAll('#galeria .gallery-card img'));
+let galleryItems=[];
 let currentGalleryIndex=0;
-function visibleGalleryImages(){return galleryCards.filter(card=>!card.hidden).flatMap(card=>Array.from(card.querySelectorAll('img')))}
-function showGalleryImage(index){galleryImages=visibleGalleryImages();if(!galleryImages.length)return;currentGalleryIndex=(index+galleryImages.length)%galleryImages.length;const image=galleryImages[currentGalleryIndex];lightboxImg.src=image.src;lightboxImg.alt=image.alt;countLabel.textContent=(currentGalleryIndex+1)+' / '+galleryImages.length;lightbox.classList.add('open');document.body.style.overflow='hidden'}
-function closeGallery(){lightbox.classList.remove('open');document.body.style.overflow=''}
-galleryImages.forEach(image=>{image.addEventListener('click',()=>showGalleryImage(visibleGalleryImages().indexOf(image)));image.tabIndex=0;image.setAttribute('role','button');image.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();showGalleryImage(visibleGalleryImages().indexOf(image))}})});
+function visibleGalleryItems(){return galleryCards.filter(card=>!card.hidden).flatMap(card=>{const image=card.querySelector('img');const video=card.querySelector('video');return image?[{type:'image',element:image,card}]:video?[{type:'video',element:video,card}]:[]})}
+function showGalleryItem(index){galleryItems=visibleGalleryItems();if(!galleryItems.length)return;currentGalleryIndex=(index+galleryItems.length)%galleryItems.length;const item=galleryItems[currentGalleryIndex];lightboxVideo.pause();lightboxVideo.classList.remove('active');lightboxImg.classList.remove('active');if(item.type==='image'){lightboxImg.src=item.element.src;lightboxImg.alt=item.element.alt;lightboxImg.classList.add('active');lightboxVideo.removeAttribute('src');lightboxVideo.replaceChildren()}else{const source=item.element.querySelector('source');lightboxVideo.src=source?source.src:item.element.currentSrc;lightboxVideo.setAttribute('aria-label',item.element.getAttribute('aria-label')||'Vídeo ampliado do evento');lightboxVideo.classList.add('active');lightboxVideo.load()}countLabel.textContent=(currentGalleryIndex+1)+' / '+galleryItems.length;lightbox.classList.add('open');document.body.style.overflow='hidden'}
+function closeGallery(){lightbox.classList.remove('open');lightboxVideo.pause();document.body.style.overflow=''}
+galleryCards.forEach(card=>{const image=card.querySelector('img');const video=card.querySelector('video');const trigger=image||video;if(!trigger)return;trigger.tabIndex=0;trigger.setAttribute('role','button');trigger.addEventListener('click',()=>showGalleryItem(visibleGalleryItems().findIndex(item=>item.card===card)));trigger.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();showGalleryItem(visibleGalleryItems().findIndex(item=>item.card===card))}});if(video){card.addEventListener('click',event=>{if(event.target.closest('video'))showGalleryItem(visibleGalleryItems().findIndex(item=>item.card===card))})}});
 document.querySelectorAll('.gallery-filter').forEach(button=>button.addEventListener('click',()=>{const filter=button.dataset.filter;document.querySelectorAll('.gallery-filter').forEach(item=>{const active=item===button;item.classList.toggle('active',active);item.setAttribute('aria-pressed',String(active))});galleryCards.forEach(card=>{card.hidden=filter==='photo'?card.classList.contains('gallery-video'):filter==='video'?!card.classList.contains('gallery-video'):false});if(lightbox.classList.contains('open'))closeGallery()}));
 lightbox.querySelector('.close').addEventListener('click',closeGallery);
-lightbox.querySelector('.prev').addEventListener('click',()=>showGalleryImage(currentGalleryIndex-1));
-lightbox.querySelector('.next').addEventListener('click',()=>showGalleryImage(currentGalleryIndex+1));
+lightbox.querySelector('.prev').addEventListener('click',()=>showGalleryItem(currentGalleryIndex-1));
+lightbox.querySelector('.next').addEventListener('click',()=>showGalleryItem(currentGalleryIndex+1));
 lightbox.addEventListener('click',event=>{if(event.target===lightbox)closeGallery()});
-addEventListener('keydown',event=>{if(!lightbox.classList.contains('open'))return;if(event.key==='Escape')closeGallery();if(event.key==='ArrowLeft')showGalleryImage(currentGalleryIndex-1);if(event.key==='ArrowRight')showGalleryImage(currentGalleryIndex+1)});
+addEventListener('keydown',event=>{if(!lightbox.classList.contains('open'))return;if(event.key==='Escape')closeGallery();if(event.key==='ArrowLeft')showGalleryItem(currentGalleryIndex-1);if(event.key==='ArrowRight')showGalleryItem(currentGalleryIndex+1)});
 
 </script></body></html>
