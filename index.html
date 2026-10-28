@@ -27,13 +27,14 @@
 .gallery-placeholder[hidden]{display:none}
 .gallery-placeholder strong{display:block;color:var(--ink);font:800 clamp(1.4rem,2.5vw,2.5rem)/1.05 var(--serif);margin-bottom:10px}
 .gallery-card figcaption{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:white;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.04em}
-.gallery-lightbox{position:fixed;inset:0;z-index:1000;background:rgba(12,12,12,.94);display:none;align-items:center;justify-content:center;padding:5vw}
+.gallery-lightbox{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:1000;background:rgba(12,12,12,.94);display:none;align-items:center;justify-content:center;padding:64px 72px;overflow:auto;overscroll-behavior:contain}
 .gallery-lightbox.open{display:flex}
-.gallery-lightbox img{max-width:88vw;max-height:82vh;object-fit:contain}
+.gallery-lightbox img{display:block;width:auto;height:auto;max-width:calc(100vw - 144px);max-height:calc(100vh - 128px);max-height:calc(100dvh - 128px);object-fit:contain;flex:0 1 auto}
+.gallery-lightbox .close,.gallery-lightbox .prev,.gallery-lightbox .next{z-index:2}
 .gallery-lightbox button{position:absolute;border:1px solid rgba(255,255,255,.55);background:rgba(0,0,0,.35);color:#fff;padding:12px 15px;cursor:pointer;font:12px var(--mono)}
 .gallery-lightbox .close{top:20px;right:20px}.gallery-lightbox .prev{left:20px;top:50%;transform:translateY(-50%)}.gallery-lightbox .next{right:20px;top:50%;transform:translateY(-50%)}
 .gallery-lightbox .count{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;font:12px var(--mono)}
-@media(max-width:700px){.gallery-lightbox{padding:12px}.gallery-lightbox img{max-width:96vw;max-height:78vh}.gallery-lightbox .prev{left:8px}.gallery-lightbox .next{right:8px}}
+@media(max-width:700px){.gallery-lightbox{padding:58px 12px 54px}.gallery-lightbox img{max-width:calc(100vw - 24px);max-height:calc(100vh - 112px);max-height:calc(100dvh - 112px)}.gallery-lightbox .close{top:10px;right:10px}.gallery-lightbox .prev{left:8px}.gallery-lightbox .next{right:8px}.gallery-lightbox .count{bottom:14px}}
 
 .workz-feature{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,5vw,70px);align-items:center}
 .workz-photo{position:relative;aspect-ratio:4/3;background:#181818;overflow:hidden;border:1px solid #aaa69e}
@@ -116,6 +117,8 @@
 const progress=document.getElementById('progress');function updateProgress(){const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'}addEventListener('scroll',updateProgress,{passive:true});updateProgress();
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 const lightbox=document.getElementById('galleryLightbox');
+// Keep the lightbox directly under body so reveal/transform animations on the gallery section cannot offset the fixed overlay.
+document.body.appendChild(lightbox);
 const lightboxImg=lightbox.querySelector('img');
 const countLabel=lightbox.querySelector('.count');
 const galleryImages=Array.from(document.querySelectorAll('#galeria .gallery-card img'));
